@@ -5,14 +5,13 @@ class Soldier {
         this.strength = strength;
     }
 
-    attack() {
+    static attack() {
+        console.log("jjjjjjjjjjjjjjj")
         return this.strength
     }
 
     receiveDamage(damage) {
         this.health -= damage
-
-
     }
 
 }
@@ -29,12 +28,14 @@ class Viking extends Soldier {
         return this.health > 0 ? `${this.name} has received ${damage} points of damage` : `${this.name} has died in act of combat`
 
     }
+    
     battleCry() {
         return "Odin Owns You All!"
     }
 
     //1º escolher dentro da array vikingArmy/saxonArmy um soldado aleatório
     static vikingAttack() {
+        super.attack()
         let health = (saxon1).receiveDamage(viking1.strength)
         if (saxon1.health <= 0) {
             //saxon1 = null;
@@ -56,10 +57,12 @@ class Saxon extends Soldier {
         return this.health > 0 ? `A Saxon has received ${damage} points of damage` : `A Saxon has died in combat`
     }
 
-    static  saxonAttack() {
+  
+    static saxonAttack() {
+        super.attack
         let health = (viking1).receiveDamage(saxon1.strength)
         if (viking1.health <= 0) {
-           // viking1 = null;
+          //  viking1 = null;
         }
         return health
     }
@@ -78,7 +81,7 @@ class War {
     }
 
     addSaxon(saxon) {
-        this.vikingArmy.push(saxon)
+        this.saxonArmy.push(saxon)
 
     }
 
@@ -109,8 +112,8 @@ const viking1 = new Viking('Ragnar', 100, 150);
 const saxon1 = new Saxon(150, 100);
 war1.addViking(viking1)
 war1.addSaxon(saxon1)
-console.log(saxon1)
 war1.saxonAttack()
 war1.vikingAttack()
 //console.log(saxon1)
+console.log(war1)
 
