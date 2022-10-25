@@ -14,6 +14,7 @@ class Soldier {
 
 
     }
+
 }
 
 // Viking
@@ -32,14 +33,37 @@ class Viking extends Soldier {
         return "Odin Owns You All!"
     }
 
-}
+    //1º escolher dentro da array vikingArmy/saxonArmy um soldado aleatório
+    static vikingAttack() {
+        let health = (saxon1).receiveDamage(viking1.strength)
+        if (saxon1.health <= 0) {
+            //saxon1 = null;
+        }
+        return health
+    }
 
+ 
+
+}
 // Saxon
 class Saxon extends Soldier {
+    constructor(health, strength) {
+    super(health, strength)
+
+    }
     receiveDamage(damage) {
         super.receiveDamage(damage)
         return this.health > 0 ? `A Saxon has received ${damage} points of damage` : `A Saxon has died in combat`
     }
+
+    static  saxonAttack() {
+        let health = (viking1).receiveDamage(saxon1.strength)
+        if (viking1.health <= 0) {
+           // viking1 = null;
+        }
+        return health
+    }
+
 }
 
 // War
@@ -47,49 +71,24 @@ class War {
     constructor() {
         this.vikingArmy = []
         this.saxonArmy = []
-
     }
 
     addViking(viking) {
         this.vikingArmy.push(viking)
     }
 
-
     addSaxon(saxon) {
-        this.saxonArmy.push(saxon)
+        this.vikingArmy.push(saxon)
+
     }
 
     vikingAttack() {
-        //1º escolher dentro da array vikingArmy/saxonArmy um soldado aleatório
-
-        let searchIndexViking = Math.floor(Math.random() * this.vikingArmy.length)//index
-        let searchIndexSaxon = Math.floor(Math.random() * this.saxonArmy.length)//index
-
-        let viking = this.vikingArmy[searchIndexViking]
-        let saxon = this.saxonArmy[searchIndexSaxon]
-
-        let result = saxon.receiveDamage(viking.attack())
-
-        if (saxon.health <= 0) {
-            this.saxonArmy.splice(searchIndexSaxon, 1)
-        }
-        return result
+        return Viking.vikingAttack();
     }
 
 
     saxonAttack() {
-        let searchIndexViking = Math.floor(Math.random() * this.vikingArmy.length)//index
-        let searchIndexSaxon = Math.floor(Math.random() * this.saxonArmy.length)//index
-
-        let viking = this.vikingArmy[searchIndexViking]
-        let saxon = this.saxonArmy[searchIndexSaxon]
-
-        let result = viking.receiveDamage(saxon.attack())
-
-        if (viking.health <= 0) {
-            this.vikingArmy.splice(searchIndexViking, 1)
-        }
-        return result
+        return Saxon.saxonAttack();
     }
 
 
@@ -101,18 +100,17 @@ class War {
         } else if (this.saxonArmy.length >= 1 && this.vikingArmy.length >= 1) {
             return `Vikings and Saxons are still in the thick of battle.`
         }
-
-
     }
-
 }
 
 
-const war1 = new War()
+var war1 = new War()
 const viking1 = new Viking('Ragnar', 100, 150);
 const saxon1 = new Saxon(150, 100);
-
-
 war1.addViking(viking1)
 war1.addSaxon(saxon1)
-console.log(war1)
+console.log(saxon1)
+war1.saxonAttack()
+war1.vikingAttack()
+//console.log(saxon1)
+
