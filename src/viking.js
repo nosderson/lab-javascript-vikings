@@ -28,7 +28,8 @@ class Viking extends Soldier {
     }
 
     receiveDamage(damage) {
-       return [super.receiveDamage(damage),this.health > 0 ? `${this.name} has received ${damage} points of damage` : `${this.name} has died in act of combat`]
+        super.receiveDamage(damage)
+        return this.health > 0 ? `${this.name} has received ${damage} points of damage` : `${this.name} has died in act of combat`
 
     }
 
@@ -38,17 +39,17 @@ class Viking extends Soldier {
 
     //1º escolher dentro da array vikingArmy/saxonArmy um soldado aleatório
     static vikingAttack(saxonArmy, vikingArmy) {
-        const randomico = super.attack(saxonArmy.lenght, vikingArmy.lenght)
+        const randomico = super.attack(saxonArmy.length, vikingArmy.length)
         const indexVicking = randomico[0]
         const indexSaxon = randomico[1]
         const viking = vikingArmy[indexVicking]
         const saxon = saxonArmy[indexSaxon]
-        let health =[]
-        health[0] = saxon.receiveDamage(saxon.strength)[0]
-        if (health[0] <= 0) {
-            this.viking.splice(saxon, 1)
+        const health = (saxon.receiveDamage(viking.strength))
+        if (health === `A Saxon has died in combat`) {
+            saxonArmy.splice(saxon, 1)
+            console.log(`A Saxon has died in combat`)
         }
-        return health[1]
+        return health
     }
 
 
@@ -60,22 +61,23 @@ class Saxon extends Soldier {
 
     }
     receiveDamage(damage) {
-        return  [super.receiveDamage(damage),this.health > 0 ? `A Saxon has received ${damage} points of damage` : `A Saxon has died in combat`]
+        super.receiveDamage(damage)
+        return this.health > 0 ? `A Saxon has received ${damage} points of damage` : `A Saxon has died in combat`
     }
 
 
-    static saxonAttack(saxonArmy, vikingArmy ) {
+    static saxonAttack(saxonArmy, vikingArmy) {
         const randomico = super.attack(saxonArmy.length, vikingArmy.length)
         const indexVicking = randomico[0]
         const indexSaxon = randomico[1]
         const viking = vikingArmy[indexVicking]
         const saxon = saxonArmy[indexSaxon]
-        let health=[]
-        health[0] = (viking.receiveDamage(saxon.strength))[0]
-        if (health[0] <= 0) {
-            this.viking.splice(viking, 1)
+        const health = (viking.receiveDamage(saxon.strength))
+        if (health === `${viking.name} has died in act of combat`) {
+            vikingArmy.splice(saxon, 1)
+            console.log(`${viking.name} has died in act of combat`)
         }
-        return health[1]
+        return health
     }
 
 }
@@ -126,6 +128,6 @@ let saxon1 = new Saxon(150, 100);
 war1.addViking(viking1)
 war1.addSaxon(saxon1)
 console.log(war1)
-war1.saxonAttack()
+war1.vikingAttack()
 console.log(war1)
 
