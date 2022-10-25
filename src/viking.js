@@ -6,12 +6,12 @@ class Soldier {
     }
 
     attack() {
-        let searchIndexViking = Math.floor(Math.random()*this.vikingArmy.length)//index
-        let searchIndexSaxon = Math.floor(Math.random()*this.saxonArmy.length)//index
-        let viking = this.vikingArmy[searchIndexViking]
-        let saxon = this.saxonArmy[searchIndexSaxon]
-        console.log([viking, saxon])
-        return [viking, saxon]
+    }
+
+    static attack(saxonArmyLenght, vikingArmyLenght) {
+        let IndexViking = Math.floor(Math.random() * vikingArmyLenght)//index
+        let IndexSaxon = Math.floor(Math.random() * saxonArmyLenght)//index
+        return ([IndexViking, IndexSaxon])
     }
 
     receiveDamage(damage) {
@@ -28,50 +28,54 @@ class Viking extends Soldier {
     }
 
     receiveDamage(damage) {
-        super.receiveDamage(damage)
-        return this.health > 0 ? `${this.name} has received ${damage} points of damage` : `${this.name} has died in act of combat`
+       return [super.receiveDamage(damage),this.health > 0 ? `${this.name} has received ${damage} points of damage` : `${this.name} has died in act of combat`]
 
     }
-    
+
     battleCry() {
         return "Odin Owns You All!"
     }
 
     //1º escolher dentro da array vikingArmy/saxonArmy um soldado aleatório
-    static vikingAttack() {
-        randomico = super.attack()
-        //vicking1 = randomico[0]
-        //saxon1 = randomico[1]
-        let health = (saxon1).receiveDamage(viking1.strength)
-        if (saxon1.health <= 0) {
-            saxon1 = null;
+    static vikingAttack(saxonArmy, vikingArmy) {
+        const randomico = super.attack(saxonArmy.lenght, vikingArmy.lenght)
+        const indexVicking = randomico[0]
+        const indexSaxon = randomico[1]
+        const viking = vikingArmy[indexVicking]
+        const saxon = saxonArmy[indexSaxon]
+        let health =[]
+        health[0] = saxon.receiveDamage(saxon.strength)[0]
+        if (health[0] <= 0) {
+            this.viking.splice(saxon, 1)
         }
-        return health
+        return health[1]
     }
 
- 
+
 }
 // Saxon
 class Saxon extends Soldier {
     constructor(health, strength) {
-    super(health, strength)
+        super(health, strength)
 
     }
     receiveDamage(damage) {
-        super.receiveDamage(damage)
-        return this.health > 0 ? `A Saxon has received ${damage} points of damage` : `A Saxon has died in combat`
+        return  [super.receiveDamage(damage),this.health > 0 ? `A Saxon has received ${damage} points of damage` : `A Saxon has died in combat`]
     }
 
-  
-    static saxonAttack() {
-        const randomico = super.attack()
-       vicking1 = randomico[0]
-        saxon1 = randomico[1]
-        let health = (viking1).receiveDamage(saxon1.strength)
-        if (viking1.health <= 0) {
-           viking1 = null;
+
+    static saxonAttack(saxonArmy, vikingArmy ) {
+        const randomico = super.attack(saxonArmy.length, vikingArmy.length)
+        const indexVicking = randomico[0]
+        const indexSaxon = randomico[1]
+        const viking = vikingArmy[indexVicking]
+        const saxon = saxonArmy[indexSaxon]
+        let health=[]
+        health[0] = (viking.receiveDamage(saxon.strength))[0]
+        if (health[0] <= 0) {
+            this.viking.splice(viking, 1)
         }
-        return health
+        return health[1]
     }
 
 }
@@ -83,6 +87,8 @@ class War {
         this.saxonArmy = []
     }
 
+
+
     addViking(viking) {
         this.vikingArmy.push(viking)
     }
@@ -93,12 +99,12 @@ class War {
     }
 
     vikingAttack() {
-        return Viking.vikingAttack();
+        return Viking.vikingAttack(this.saxonArmy, this.vikingArmy);
     }
 
 
     saxonAttack() {
-        return Saxon.saxonAttack();
+        return Saxon.saxonAttack(this.saxonArmy, this.vikingArmy);
     }
 
 
@@ -119,7 +125,7 @@ let viking1 = new Viking('Ragnar', 100, 150);
 let saxon1 = new Saxon(150, 100);
 war1.addViking(viking1)
 war1.addSaxon(saxon1)
-//console.log(war1)
+console.log(war1)
 war1.saxonAttack()
-//console.log(war1)
+console.log(war1)
 
