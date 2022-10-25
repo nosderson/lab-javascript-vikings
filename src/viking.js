@@ -6,6 +6,7 @@ class Soldier {
     }
 
     attack() {
+        return this.strength
     }
 
     static attack(saxonArmyLenght, vikingArmyLenght) {
