@@ -5,9 +5,13 @@ class Soldier {
         this.strength = strength;
     }
 
-    static attack() {
-        console.log("jjjjjjjjjjjjjjj")
-        return this.strength
+    attack() {
+        let searchIndexViking = Math.floor(Math.random()*this.vikingArmy.length)//index
+        let searchIndexSaxon = Math.floor(Math.random()*this.saxonArmy.length)//index
+        let viking = this.vikingArmy[searchIndexViking]
+        let saxon = this.saxonArmy[searchIndexSaxon]
+        console.log([viking, saxon])
+        return [viking, saxon]
     }
 
     receiveDamage(damage) {
@@ -35,16 +39,17 @@ class Viking extends Soldier {
 
     //1º escolher dentro da array vikingArmy/saxonArmy um soldado aleatório
     static vikingAttack() {
-        super.attack()
+        randomico = super.attack()
+        //vicking1 = randomico[0]
+        //saxon1 = randomico[1]
         let health = (saxon1).receiveDamage(viking1.strength)
         if (saxon1.health <= 0) {
-            //saxon1 = null;
+            saxon1 = null;
         }
         return health
     }
 
  
-
 }
 // Saxon
 class Saxon extends Soldier {
@@ -59,10 +64,12 @@ class Saxon extends Soldier {
 
   
     static saxonAttack() {
-        super.attack
+        const randomico = super.attack()
+       vicking1 = randomico[0]
+        saxon1 = randomico[1]
         let health = (viking1).receiveDamage(saxon1.strength)
         if (viking1.health <= 0) {
-          //  viking1 = null;
+           viking1 = null;
         }
         return health
     }
@@ -108,12 +115,11 @@ class War {
 
 
 var war1 = new War()
-const viking1 = new Viking('Ragnar', 100, 150);
-const saxon1 = new Saxon(150, 100);
+let viking1 = new Viking('Ragnar', 100, 150);
+let saxon1 = new Saxon(150, 100);
 war1.addViking(viking1)
 war1.addSaxon(saxon1)
+//console.log(war1)
 war1.saxonAttack()
-war1.vikingAttack()
-//console.log(saxon1)
-console.log(war1)
+//console.log(war1)
 
